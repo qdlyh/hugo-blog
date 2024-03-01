@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on 我的全新 Hugo 网站</title>
+    <link>http://example.org/about/</link>
+    <description>Recent content in Abouts on 我的全新 Hugo 网站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>yh620@foxmail.com (lyh)</managingEditor>
+    <webMaster>yh620@foxmail.com (lyh)</webMaster>
+    <lastBuildDate>Fri, 01 Mar 2024 16:45:20 +0800</lastBuildDate>
+    <atom:link href="http://example.org/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://example.org/about/about/</link>
+      <pubDate>Fri, 01 Mar 2024 16:45:20 +0800</pubDate><author>yh620@foxmail.com (lyh)</author>
+      <guid>http://example.org/about/about/</guid>
+      <description>大家好，我是lyh 该博客模板是hugo主题是LoveIt 搭建博客的原因是平时写一些工作上的笔记，或者自己学习的技术记录方便阅读回顾！ 其实之前</description>
+    </item>
+  </channel>
+</rss>
