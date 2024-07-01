@@ -1,23 +1,71 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - lyh博客</title>
-        <link>http://example.org/posts/</link>
+        <link>http://localhost:1313/posts/</link>
         <description>All Posts | lyh博客</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yh620@foxmail.com (lyh)</managingEditor>
-            <webMaster>yh620@foxmail.com (lyh)</webMaster><lastBuildDate>Mon, 01 Jul 2024 11:38:42 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yh620@foxmail.com (lyh)</webMaster><lastBuildDate>Mon, 01 Jul 2024 16:41:48 &#43;0800</lastBuildDate><atom:link href="http://localhost:1313/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Js手势滑动事件（判断上下左右方向）</title>
+    <link>http://localhost:1313/js%E6%89%8B%E5%8A%BF%E6%BB%91%E5%8A%A8%E4%BA%8B%E4%BB%B6%E5%88%A4%E6%96%AD%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3%E6%96%B9%E5%90%91/</link>
+    <pubDate>Mon, 01 Jul 2024 16:41:48 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://localhost:1313/js%E6%89%8B%E5%8A%BF%E6%BB%91%E5%8A%A8%E4%BA%8B%E4%BB%B6%E5%88%A4%E6%96%AD%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3%E6%96%B9%E5%90%91/</guid>
+    <description><![CDATA[项目里有个上拉加载数据的需求，就造了一个上拉加载下拉刷新的轮子，当然这里只说手势滑动事件，滑动到最顶和最底部动画，参考了swiper.js 1]]></description>
+</item>
+<item>
+    <title>微信小程序压缩图片，压缩图片质量非裁剪</title>
+    <link>http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/</link>
+    <pubDate>Mon, 01 Jul 2024 16:40:18 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/</guid>
+    <description><![CDATA[原理：利用canvas来实现，将图片绘制到canvas上，然后canvas转图片时，微信提供的一个方法wx.canvasToTempFile]]></description>
+</item>
+<item>
+    <title>使用http Server开启一个本地服务器</title>
+    <link>http://localhost:1313/%E4%BD%BF%E7%94%A8http-server%E5%BC%80%E5%90%AF%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+    <pubDate>Mon, 01 Jul 2024 16:34:39 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://localhost:1313/%E4%BD%BF%E7%94%A8http-server%E5%BC%80%E5%90%AF%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+    <description><![CDATA[在写前端页面中，经常会在浏览器运行HTML页面，从本地文件夹中直接打开的一般都是file协议，当代码中存在http或https的链接时，HT]]></description>
+</item>
+<item>
+    <title>Vue2通过keep Alive设置页面TABS业务缓存</title>
+    <link>http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2tabs%E4%B8%9A%E5%8A%A1%E7%BC%93%E5%AD%98/</link>
+    <pubDate>Mon, 01 Jul 2024 16:12:34 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2tabs%E4%B8%9A%E5%8A%A1%E7%BC%93%E5%AD%98/</guid>
+    <description><![CDATA[项目上有个需求，需要缓存已打开的页面，同时关闭 tab 的时候清除缓存。 总体思路 1.在 vue 方法里keep-alive的include设置需要缓存页面的]]></description>
+</item>
+<item>
+    <title>Vue2通过keep Alive设置页面缓存</title>
+    <link>http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/</link>
+    <pubDate>Mon, 01 Jul 2024 16:11:25 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/</guid>
+    <description><![CDATA[一直以来移动端的项目都有一种优化上的需求，那就是前进页面拿最新的数据，后退页面即缓存页面。 总体思路 1.在 vue 方法里 keep-alive 的 include 设置需要缓存页面的 name 可]]></description>
+</item>
+<item>
+    <title>Window上使用NVM进行管理node版本</title>
+    <link>http://localhost:1313/window%E4%B8%8A%E4%BD%BF%E7%94%A8nvm%E8%BF%9B%E8%A1%8C%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC/</link>
+    <pubDate>Mon, 01 Jul 2024 16:03:54 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://localhost:1313/window%E4%B8%8A%E4%BD%BF%E7%94%A8nvm%E8%BF%9B%E8%A1%8C%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC/</guid>
+    <description><![CDATA[1.下载nvm github最新版本下载: https://github.com/coreybutler/nvm-windows/releases 2.nvm的使用方法 1.安装最新版node： nvm install latest 2.安装指定版本node： nvm install 14.15.0 3.查看已安装的]]></description>
+</item>
+<item>
     <title>Hugo使用</title>
-    <link>http://example.org/hugo%E4%BD%BF%E7%94%A8/</link>
+    <link>http://localhost:1313/hugo%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 01 Jul 2024 11:38:42 &#43;0800</pubDate>
     <author>lyh</author>
-    <guid>http://example.org/hugo%E4%BD%BF%E7%94%A8/</guid>
+    <guid>http://localhost:1313/hugo%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[以下是创建第一篇文章的方法: hugo new posts/first_post.md 注意 默认情况下, 所有文章和页面均作为草稿创建. 如果想要渲染这些页面, 请从元数据中删除属性 draft: true, 设置属性 draft: false 在]]></description>
 </item>
 <item>
     <title>First_post</title>
-    <link>http://example.org/first_post/</link>
+    <link>http://localhost:1313/first_post/</link>
     <pubDate>Fri, 01 Mar 2024 17:22:49 &#43;0800</pubDate>
     <author>lyh</author>
-    <guid>http://example.org/first_post/</guid>
+    <guid>http://localhost:1313/first_post/</guid>
     <description><![CDATA[测试文章 该博客模板是hugo主题是LoveIt 搭建博客的原因是平时写一些工作上的笔记，或者自己学习的技术记录方便阅读回顾！ 其实之前也有用过v]]></description>
 </item>
 </channel>

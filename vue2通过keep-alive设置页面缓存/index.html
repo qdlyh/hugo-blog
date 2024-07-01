@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Vue2通过keep Alive设置页面缓存 - lyh博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="Vue2通过keep Alive设置页面缓存" />
+<meta property="og:description" content="一直以来移动端的项目都有一种优化上的需求，那就是前进页面拿最新的数据，后退页面即缓存页面。 总体思路 1.在 vue 方法里 keep-alive 的 include 设置需要缓存页面的 name 可" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-07-01T16:11:25+08:00" />
+<meta property="article:modified_time" content="2024-07-01T16:11:25+08:00" /><meta property="og:site_name" content="我的网站" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="Vue2通过keep Alive设置页面缓存"/>
+<meta name="twitter:description" content="一直以来移动端的项目都有一种优化上的需求，那就是前进页面拿最新的数据，后退页面即缓存页面。 总体思路 1.在 vue 方法里 keep-alive 的 include 设置需要缓存页面的 name 可"/>
+<meta name="twitter:site" content="@xxxx"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/" /><link rel="prev" href="http://localhost:1313/window%E4%B8%8A%E4%BD%BF%E7%94%A8nvm%E8%BF%9B%E8%A1%8C%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC/" /><link rel="next" href="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2tabs%E4%B8%9A%E5%8A%A1%E7%BC%93%E5%AD%98/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vue2通过keep Alive设置页面缓存",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98\/"
+        },"genre": "posts","wordcount":  1169 ,
+        "url": "http:\/\/localhost:1313\/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98\/","datePublished": "2024-07-01T16:11:25+08:00","dateModified": "2024-07-01T16:11:25+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "lyh"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lyh博客"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lyh博客"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Vue2通过keep Alive设置页面缓存</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>lyh</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-01">2024-07-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1169 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一直以来移动端的项目都有一种优化上的需求那就是前进页面拿最新的数据后退页面即缓存页面">一直以来移动端的项目都有一种优化上的需求，那就是前进页面拿最新的数据，后退页面即缓存页面。</a></li>
+        <li><a href="#总体思路">总体思路</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="一直以来移动端的项目都有一种优化上的需求那就是前进页面拿最新的数据后退页面即缓存页面">一直以来移动端的项目都有一种优化上的需求，那就是前进页面拿最新的数据，后退页面即缓存页面。</h3>
+<h3 id="总体思路">总体思路</h3>
+<p>1.在 vue 方法里 <code>keep-alive</code> 的 <code>include</code> 设置需要缓存页面的 name 可以判断页面是否已缓存（<code>include</code> 可字符串可数组）这里通过数组方式进行</p>
+<p>2.设置文件里的 name 和路由里的 name（保持一致）</p>
+<p>3.<code>router.js</code> 路由文件中设置两个值 <code>keepAlive</code> 和 <code>deleteCachedName</code>。需要缓存的设置 <code>keepAlive:true</code>，不需要的直接设置 <code>deleteCachedName</code>:需要删除的缓存 name</p>
+<p>4.新增/删除 include 数组缓存中的 name</p>
+<p>5.返回上一页自动滑动到上次滚动条的位置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"> <span class="o">//</span><span class="n">App</span><span class="o">.</span><span class="n">vue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;</span><span class="n">keep</span><span class="o">-</span><span class="n">alive</span> <span class="p">:</span><span class="n">include</span><span class="o">=</span><span class="s2">&#34;$store.state.cachedRouteNames&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">&lt;</span><span class="n">router</span><span class="o">-</span><span class="n">view</span> <span class="p">:</span><span class="n">key</span><span class="o">=</span><span class="s2">&#34;$route.query.id&#34;</span><span class="o">&gt;&lt;/</span><span class="n">router</span><span class="o">-</span><span class="n">view</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;/</span><span class="n">keep</span><span class="o">-</span><span class="n">alive</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">//</span><span class="n">router</span><span class="o">.</span><span class="n">js</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;/home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">meta</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span><span class="p">:</span> <span class="s1">&#39;我需要缓存页面&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">keepAlive</span><span class="p">:</span> <span class="bp">true</span><span class="p">,</span> <span class="o">//</span><span class="err">页面需要缓存</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">component</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span><span class="n">import</span><span class="p">(</span><span class="s1">&#39;@/views/home/index.vue&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;/goHome&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;goHome&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="n">meta</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span><span class="p">:</span> <span class="s1">&#39;删除缓存&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">deleteCachedName</span><span class="p">:</span> <span class="s1">&#39;home&#39;</span><span class="p">,</span> <span class="o">//</span><span class="err">删除</span><span class="n">home页面需要缓存</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">component</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span><span class="n">import</span><span class="p">(</span><span class="s1">&#39;@/views/goHome/goHome.vue&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="o">//</span><span class="n">state</span><span class="o">.</span><span class="n">js</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedRouteNames</span><span class="p">:</span> <span class="p">[],</span> <span class="o">//</span><span class="err">缓存页面路由</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedRouteScroll</span><span class="p">:</span><span class="n">null</span> <span class="o">//</span><span class="err">缓存页面滚动条位置</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">export</span> <span class="n">default</span> <span class="n">state</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">//</span><span class="n">mutations</span><span class="o">.</span><span class="n">js</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">mutations</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">/</span>\<span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">设置缓存</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">添加缓存，需要配置在组件里添加</span> <span class="n">name</span> <span class="err">以及路由里写上对应组件的</span> <span class="n">name</span> <span class="p">(</span><span class="n">name</span> <span class="err">格式</span> <span class="n">xx</span><span class="o">-</span><span class="n">xx</span> <span class="p">(</span><span class="err">父组件</span> <span class="n">name</span><span class="o">-</span><span class="err">当前</span> <span class="n">name</span><span class="p">)</span> <span class="err">用</span><span class="s2">&#34;-&#34;</span><span class="err">区分开来</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">删除缓存，需要配置（以缓从组件）上一个组件里添加</span><span class="s2">&#34;deleteCachedName:删除的组件 name&#34;</span> <span class="p">(</span><span class="err">例如</span> <span class="n">A</span> <span class="err">——</span><span class="o">&gt;</span> <span class="n">B</span> <span class="err">删除以缓存的组件</span> <span class="n">B</span><span class="err">，即在</span> <span class="n">A</span> <span class="err">的路由</span> <span class="n">meta</span> <span class="err">里添加</span> <span class="n">deleteCachedName</span><span class="p">:</span><span class="n">B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">_</span><span class="o">/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">SetcachedRouteNames</span><span class="p">(</span><span class="n">state</span><span class="p">,{</span> <span class="n">action</span><span class="p">,</span> <span class="n">route</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">methods</span><span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;add&#39;</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">添加缓存</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span><span class="o">.</span><span class="n">cachedRouteNames</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">route</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span><span class="o">.</span><span class="n">cachedRouteNames</span><span class="o">=</span><span class="ne">Array</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="n">new</span> <span class="n">Set</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">cachedRouteNames</span><span class="p">))</span> <span class="o">//</span><span class="err">删除缓存重复数据</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;delete&#39;</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">//</span><span class="err">删除缓存</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span><span class="o">.</span><span class="n">cachedRouteNames</span><span class="o">.</span><span class="n">splice</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">cachedRouteNames</span><span class="o">.</span><span class="n">findIndex</span><span class="p">((</span><span class="n">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="k">return</span> <span class="n">e</span> <span class="o">===</span> <span class="n">route</span><span class="p">}),</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">methods</span><span class="p">[</span><span class="n">action</span><span class="p">]()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="o">/</span><span class="n">_</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="err">设置缓存滚动条</span> <span class="n">set</span> <span class="err">记录滚动条位置，</span><span class="n">to</span> <span class="err">滚动到记录位置。</span><span class="n">set</span> <span class="err">和</span> <span class="n">to</span> <span class="err">调用方法是一样的</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">to</span> <span class="err">一般用在页面初始化</span> <span class="n">DOM</span> <span class="err">已加载完进行调用</span> <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="n">set一般用在页面离开进行调用</span> <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;滚动条模块的name或id，需要加上.或#&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;.class&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;#id&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  \<span class="o">*/</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">SetcachedRouteScroll</span><span class="p">(</span><span class="n">state</span><span class="p">,{</span> <span class="n">action</span><span class="p">,</span> <span class="n">name</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">methods</span><span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;set&#39;</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">记录滚动条位置</span>
+</span></span><span class="line"><span class="cl">    <span class="n">state</span><span class="o">.</span><span class="n">cachedRouteScroll</span><span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">scrollTop</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">cachedRouteScroll</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;to&#39;</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">滚动到记录位置</span>
+</span></span><span class="line"><span class="cl">    <span class="n">document</span><span class="o">.</span><span class="n">querySelector</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">scrollTop</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">cachedRouteScroll</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">cachedRouteScroll</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">methods</span><span class="p">[</span><span class="n">action</span><span class="p">]()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">export</span> <span class="n">default</span> <span class="n">mutations</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">//</span><span class="n">main</span><span class="o">.</span><span class="n">js</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">/</span>\<span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">页面转跳之后</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">添加缓存，需要配置在组件里添加</span> <span class="n">name</span> <span class="err">以及路由里写上对应组件的</span> <span class="n">name</span> <span class="p">(</span><span class="n">name</span> <span class="err">格式</span> <span class="n">xx</span><span class="o">-</span><span class="n">xx</span> <span class="p">(</span><span class="err">父组件</span> <span class="n">name</span><span class="o">-</span><span class="err">当前</span> <span class="n">name</span><span class="p">)</span> <span class="err">用</span><span class="s2">&#34;-&#34;</span><span class="err">区分开来</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="o">-</span> <span class="err">删除缓存，需要配置（以缓从组件）上一个组件里添加</span><span class="s2">&#34;deleteCachedName:删除的组件 name&#34;</span> <span class="p">(</span><span class="err">例如</span> <span class="n">A</span> <span class="err">——</span><span class="o">&gt;</span> <span class="n">B</span> <span class="err">删除以缓存的组件</span> <span class="n">B</span><span class="err">，即在</span> <span class="n">A</span> <span class="err">的路由</span> <span class="n">meta</span> <span class="err">里添加</span> <span class="n">deleteCachedName</span><span class="p">:</span><span class="n">B</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    \<span class="o">*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">router</span><span class="o">.</span><span class="n">afterEach</span><span class="p">((</span><span class="n">to</span><span class="p">,</span> <span class="n">from</span><span class="p">,</span> <span class="n">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">to</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">keepAlive</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span><span class="err">页面缓存</span>
+</span></span><span class="line"><span class="cl">        <span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteNames&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="n">route</span><span class="p">:</span> <span class="n">to</span><span class="o">.</span><span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">to</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">deleteCachedName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="o">//</span><span class="err">删除缓存</span>
+</span></span><span class="line"><span class="cl">        <span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteNames&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="n">route</span><span class="p">:</span> <span class="n">to</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">deleteCachedName</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="o">//</span><span class="err">组件</span>
+</span></span><span class="line"><span class="cl">  <span class="n">activated</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">//</span><span class="err">滑动到记录滚动条的位置</span>
+</span></span><span class="line"><span class="cl">    <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;#pullScrollCell&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="n">methods</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="err">转跳页面，记录当前滚动条</span>
+</span></span><span class="line"><span class="cl">    <span class="n">go</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">this</span><span class="o">.$</span><span class="n">store</span><span class="o">.</span><span class="n">commit</span><span class="p">(</span><span class="s1">&#39;SetcachedRouteScroll&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="n">action</span><span class="p">:</span> <span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;#pullScrollCell&#39;</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">        <span class="n">this</span><span class="o">.$</span><span class="n">router</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;/details&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">query</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">id</span><span class="p">:</span><span class="n">xxx</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-07-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/" data-title="Vue2通过keep Alive设置页面缓存" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/" data-title="Vue2通过keep Alive设置页面缓存"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/" data-title="Vue2通过keep Alive设置页面缓存"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2%E7%BC%93%E5%AD%98/" data-title="Vue2通过keep Alive设置页面缓存"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/window%E4%B8%8A%E4%BD%BF%E7%94%A8nvm%E8%BF%9B%E8%A1%8C%E7%AE%A1%E7%90%86node%E7%89%88%E6%9C%AC/" class="prev" rel="prev" title="Window上使用NVM进行管理node版本"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Window上使用NVM进行管理node版本</a>
+            <a href="/vue2%E9%80%9A%E8%BF%87keep-alive%E8%AE%BE%E7%BD%AE%E9%A1%B5%E9%9D%A2tabs%E4%B8%9A%E5%8A%A1%E7%BC%93%E5%AD%98/" class="next" rel="next" title="Vue2通过keep Alive设置页面TABS业务缓存">Vue2通过keep Alive设置页面TABS业务缓存<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.6">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">lyh</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

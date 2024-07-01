@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>微信小程序压缩图片，压缩图片质量非裁剪 - lyh博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="微信小程序压缩图片，压缩图片质量非裁剪" />
+<meta property="og:description" content="原理：利用canvas来实现，将图片绘制到canvas上，然后canvas转图片时，微信提供的一个方法wx.canvasToTempFile" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-07-01T16:40:18+08:00" />
+<meta property="article:modified_time" content="2024-07-01T16:40:18+08:00" /><meta property="og:site_name" content="我的网站" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="微信小程序压缩图片，压缩图片质量非裁剪"/>
+<meta name="twitter:description" content="原理：利用canvas来实现，将图片绘制到canvas上，然后canvas转图片时，微信提供的一个方法wx.canvasToTempFile"/>
+<meta name="twitter:site" content="@xxxx"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/" /><link rel="prev" href="http://localhost:1313/%E4%BD%BF%E7%94%A8http-server%E5%BC%80%E5%90%AF%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" /><link rel="next" href="http://localhost:1313/js%E6%89%8B%E5%8A%BF%E6%BB%91%E5%8A%A8%E4%BA%8B%E4%BB%B6%E5%88%A4%E6%96%AD%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3%E6%96%B9%E5%90%91/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "微信小程序压缩图片，压缩图片质量非裁剪",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA\/"
+        },"genre": "posts","wordcount":  802 ,
+        "url": "http:\/\/localhost:1313\/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA\/","datePublished": "2024-07-01T16:40:18+08:00","dateModified": "2024-07-01T16:40:18+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "lyh"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lyh博客"></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lyh博客"></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">微信小程序压缩图片，压缩图片质量非裁剪</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>lyh</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-07-01">2024-07-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;802 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#原理利用canvas来实现将图片绘制到canvas上然后canvas转图片时微信提供的一个方法wxcanvastotempfilepathobject-object-object-this此方式可以指定生成图片的质量">原理：利用canvas来实现，将图片绘制到canvas上，然后canvas转图片时，微信提供的一个方法wx.canvasToTempFilePath(Object object, Object this)，此方式可以指定生成图片的质量</a></li>
+            <li><a href="#注意quality设置只对jpg格式的图片有效使用时要将filetype设置为jpg-此举可能会导致其它格式的图片变为jpg格式">注意：quality设置只对jpg格式的图片有效，使用时要将fileType设置为“jpg”， 此举可能会导致其它格式的图片变为jpg格式</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h4 id="原理利用canvas来实现将图片绘制到canvas上然后canvas转图片时微信提供的一个方法wxcanvastotempfilepathobject-object-object-this此方式可以指定生成图片的质量">原理：利用canvas来实现，将图片绘制到canvas上，然后canvas转图片时，微信提供的一个方法wx.canvasToTempFilePath(Object object, Object this)，此方式可以指定生成图片的质量</h4>
+<h4 id="注意quality设置只对jpg格式的图片有效使用时要将filetype设置为jpg-此举可能会导致其它格式的图片变为jpg格式">注意：quality设置只对jpg格式的图片有效，使用时要将fileType设置为“jpg”， 此举可能会导致其它格式的图片变为jpg格式</h4>
+<p>xwml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">//xwml
+</span></span><span class="line"><span class="cl">    &lt;view&gt;
+</span></span><span class="line"><span class="cl">        &lt;button bindtap=&#34;chooseImage&#34;&gt;选择图片&lt;/button&gt;
+</span></span><span class="line"><span class="cl">    &lt;/view&gt;
+</span></span><span class="line"><span class="cl">    &lt;!-- 展示压缩后的图片 --&gt;
+</span></span><span class="line"><span class="cl">    &lt;view style=&#34;display: flex;justify-content: center;flex-direction: column&#34;&gt;
+</span></span><span class="line"><span class="cl">        &lt;image mode=&#34;widthFix&#34; src=&#34;{{imagePath}}&#34;&gt;&lt;/image&gt;
+</span></span><span class="line"><span class="cl">    &lt;/view&gt;
+</span></span><span class="line"><span class="cl">    &lt;button wx:if=&#34;{{imagePath.length&gt;0}}&#34; bindtap=&#34;save&#34;&gt;点击下载压缩后的图片&lt;/button&gt;
+</span></span><span class="line"><span class="cl">    &lt;!-- 用来渲染的canvas --&gt;
+</span></span><span class="line"><span class="cl">    &lt;canvas canvas-id=&#39;attendCanvasId&#39; class=&#39;myCanvas&#39; style=&#39;width:{{cWidth}}px;height:{{cHeight}}px;position: fixed;top: -9999px;left: -9999px;&#39;&gt;&lt;/canvas&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>js</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Page</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl"><span class="o">/**</span> <span class="o">*</span> <span class="err">页面的初始数据</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">data</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">imagePath</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">quality</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">cWidth</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">cHeight</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">     <span class="n">timer</span><span class="p">:</span> <span class="n">null</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span>
+</span></span><span class="line"><span class="cl"> <span class="o">/**</span> <span class="o">*</span> <span class="err">生命周期函数</span><span class="o">--</span><span class="err">监听页面加载</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">onLoad</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">options</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="o">/**</span> <span class="o">*</span> <span class="err">选项添加图片事件</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">chooseImage</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="n">that</span> <span class="o">=</span> <span class="n">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">wx</span><span class="o">.</span><span class="n">chooseImage</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sizeType</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;compressed&#39;</span><span class="p">],</span> <span class="o">//</span><span class="err">可选择原图或压缩后的图片</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sourceType</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;album&#39;</span><span class="p">,</span> <span class="s1">&#39;camera&#39;</span><span class="p">],</span> <span class="o">//</span><span class="err">可选择性开放访问相册、相机</span>
+</span></span><span class="line"><span class="cl">    <span class="n">success</span><span class="p">:</span> <span class="n">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wx</span><span class="o">.</span><span class="n">getImageInfo</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">src</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">tempFilePaths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">that</span><span class="o">.</span><span class="n">setData</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cWidth</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cHeight</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">height</span> <span class="p">},</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="o">//</span> <span class="n">setData引起的页面渲染完成之后的回调函数</span>
+</span></span><span class="line"><span class="cl">           <span class="o">//</span> <span class="n">setData渲染是异步的</span> <span class="n">canvasToTempFilePath的时候canvas的大小可能还没有被重新设置</span>
+</span></span><span class="line"><span class="cl">           <span class="n">that</span><span class="o">.</span><span class="n">getCanvasImg</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">tempFilePaths</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">that</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">quality</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">     <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">})</span>
+</span></span><span class="line"><span class="cl"> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="o">/**</span> <span class="o">*</span> <span class="err">质量压缩</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">  <span class="n">getCanvasImg</span><span class="p">(</span><span class="n">tempFilePaths</span><span class="p">,</span> <span class="n">canvasWidth</span><span class="p">,</span> <span class="n">canvasHeight</span><span class="p">,</span> <span class="n">quality</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="k">var</span> <span class="n">that</span> <span class="o">=</span> <span class="n">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     <span class="k">const</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">createCanvasContext</span><span class="p">(</span><span class="s1">&#39;attendCanvasId&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">ctx</span><span class="o">.</span><span class="n">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">canvasWidth</span><span class="p">,</span> <span class="n">canvasHeight</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">let</span> <span class="n">pixelRatio</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">getSystemInfoSync</span><span class="p">()</span><span class="o">.</span><span class="n">pixelRatio</span> <span class="n">ctx</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span><span class="n">tempFilePaths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">canvasWidth</span><span class="p">,</span> <span class="n">canvasHeight</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="n">ctx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="bp">false</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">that</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wx</span><span class="o">.</span><span class="n">canvasToTempFilePath</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">        <span class="n">canvasId</span><span class="p">:</span> <span class="s1">&#39;attendCanvasId&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fileType</span><span class="p">:</span> <span class="s1">&#39;jpg&#39;</span><span class="p">,</span> <span class="n">quality</span><span class="p">:</span> <span class="n">quality</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">destWidth</span><span class="p">:</span> <span class="n">canvasWidth</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">destHeight</span><span class="p">:</span> <span class="n">canvasHeight</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="n">success</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">clearTimeout</span><span class="p">(</span><span class="n">that</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">timer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">that</span><span class="o">.</span><span class="n">setData</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">           <span class="n">imagePath</span><span class="p">:</span> <span class="n">res</span><span class="o">.</span><span class="n">tempFilePath</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">     <span class="p">},</span>
+</span></span><span class="line"><span class="cl">     <span class="n">fail</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">clearTimeout</span><span class="p">(</span><span class="n">that</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">timer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">     <span class="n">wx</span><span class="o">.</span><span class="n">showModal</span><span class="p">({</span> <span class="n">title</span><span class="p">:</span> <span class="s1">&#39;提示&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">     <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   <span class="p">});</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span> <span class="mi">500</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="o">/**</span> <span class="o">*</span> <span class="err">图片保存到相册</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl">   <span class="n">save</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">let</span> <span class="n">that</span> <span class="o">=</span> <span class="n">this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">wx</span><span class="o">.</span><span class="n">saveImageToPhotosAlbum</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">          <span class="n">filePath</span><span class="p">:</span> <span class="n">that</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">imagePath</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="n">success</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">         <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;图片已保存&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fail</span><span class="p">:</span> <span class="n">function</span> <span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;保存失败&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">})</span>
+</span></span><span class="line"><span class="cl">   <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> <span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-07-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/" data-title="微信小程序压缩图片，压缩图片质量非裁剪" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/" data-title="微信小程序压缩图片，压缩图片质量非裁剪"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/" data-title="微信小程序压缩图片，压缩图片质量非裁剪"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87%E8%B4%A8%E9%87%8F%E9%9D%9E%E8%A3%81%E5%89%AA/" data-title="微信小程序压缩图片，压缩图片质量非裁剪"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BD%BF%E7%94%A8http-server%E5%BC%80%E5%90%AF%E4%B8%80%E4%B8%AA%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="prev" rel="prev" title="使用http Server开启一个本地服务器"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>使用http Server开启一个本地服务器</a>
+            <a href="/js%E6%89%8B%E5%8A%BF%E6%BB%91%E5%8A%A8%E4%BA%8B%E4%BB%B6%E5%88%A4%E6%96%AD%E4%B8%8A%E4%B8%8B%E5%B7%A6%E5%8F%B3%E6%96%B9%E5%90%91/" class="next" rel="next" title="Js手势滑动事件（判断上下左右方向）">Js手势滑动事件（判断上下左右方向）<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.6">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">lyh</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
