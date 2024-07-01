@@ -1,10 +1,26 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>我的全新 Hugo 网站</title>
+        <title>lyh博客</title>
         <link>http://example.org/</link>
         <description>这是我的全新 Hugo 网站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yh620@foxmail.com (lyh)</managingEditor>
-            <webMaster>yh620@foxmail.com (lyh)</webMaster><lastBuildDate>Fri, 01 Mar 2024 17:22:49 &#43;0800</lastBuildDate>
+            <webMaster>yh620@foxmail.com (lyh)</webMaster><lastBuildDate>Mon, 01 Jul 2024 11:38:42 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
+        <item>
+    <title>Hugo使用</title>
+    <link>http://example.org/hugo%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Mon, 01 Jul 2024 11:38:42 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://example.org/hugo%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[以下是创建第一篇文章的方法: hugo new posts/first_post.md 注意 默认情况下, 所有文章和页面均作为草稿创建. 如果想要渲染这些页面, 请从元数据中删除属性 draft: true, 设置属性 draft: false 在]]></description>
+</item>
+<item>
+    <title>First_post</title>
+    <link>http://example.org/first_post/</link>
+    <pubDate>Fri, 01 Mar 2024 17:22:49 &#43;0800</pubDate>
+    <author>lyh</author>
+    <guid>http://example.org/first_post/</guid>
+    <description><![CDATA[测试文章 该博客模板是hugo主题是LoveIt 搭建博客的原因是平时写一些工作上的笔记，或者自己学习的技术记录方便阅读回顾！ 其实之前也有用过v]]></description>
+</item>
+</channel>
 </rss>
