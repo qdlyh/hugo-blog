@@ -4,31 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>axios当切换路由页面，取消正在请求的接口 - lyh博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="axios当切换路由页面，取消正在请求的接口" />
-<meta property="og:description" content="应用场景：当切换路由页面，取消正在请求的接口 1.请求拦截器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 // axios.js window._axiosPromiseArr = [] // axios中设置放置要取消的对象 axios.interceptors.request.use(config =&gt; {" />
+        <title>git发布hugo命令 - lyh博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="git发布hugo命令" />
+<meta property="og:description" content="注意 默认情况下, 所有文章和页面均作为草稿创建. 如果想要渲染这些页面, 请从元数据中删除属性 draft: true, 设置属性 draft: false cd public git pull git status git add . git commit -m &ldquo;new&rdquo; git push" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-10-16T17:22:49+08:00" />
-<meta property="article:modified_time" content="2024-10-16T17:22:49+08:00" /><meta property="og:site_name" content="我的网站" />
+<meta property="og:url" content="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-10-01T11:38:42+08:00" />
+<meta property="article:modified_time" content="2024-10-01T11:38:42+08:00" /><meta property="og:site_name" content="我的网站" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="axios当切换路由页面，取消正在请求的接口"/>
-<meta name="twitter:description" content="应用场景：当切换路由页面，取消正在请求的接口 1.请求拦截器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 // axios.js window._axiosPromiseArr = [] // axios中设置放置要取消的对象 axios.interceptors.request.use(config =&gt; {"/>
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="git发布hugo命令"/>
+<meta name="twitter:description" content="注意 默认情况下, 所有文章和页面均作为草稿创建. 如果想要渲染这些页面, 请从元数据中删除属性 draft: true, 设置属性 draft: false cd public git pull git status git add . git commit -m &ldquo;new&rdquo; git push"/>
 <meta name="twitter:site" content="@xxxx"/>
 <meta name="application-name" content="我的网站">
-<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/laifu.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" /><link rel="prev" href="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/laifu.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" /><link rel="prev" href="http://localhost:1313/hugo%E4%BD%BF%E7%94%A8/" /><link rel="next" href="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "axios当切换路由页面，取消正在请求的接口",
+        "headline": "git发布hugo命令",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/localhost:1313\/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3\/"
-        },"genre": "posts","wordcount":  193 ,
-        "url": "http:\/\/localhost:1313\/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3\/","datePublished": "2024-10-16T17:22:49+08:00","dateModified": "2024-10-16T17:22:49+08:00","publisher": {
+            "@id": "http:\/\/localhost:1313\/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4\/"
+        },"genre": "posts","wordcount":  67 ,
+        "url": "http:\/\/localhost:1313\/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4\/","datePublished": "2024-10-01T11:38:42+08:00","dateModified": "2024-10-01T11:38:42+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -99,9 +99,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">axios当切换路由页面，取消正在请求的接口</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">git发布hugo命令</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>lyh</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-16">2024-10-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;193 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-01">2024-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;67 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="true">
                 <div class="details-summary toc-title">
@@ -112,100 +112,40 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#应用场景当切换路由页面取消正在请求的接口">应用场景：当切换路由页面，取消正在请求的接口</a></li>
-        <li><a href="#1请求拦截器">1.请求拦截器</a></li>
-        <li><a href="#2进入路由钩子拦截时候取消保存的_axiospromisearr">2.进入路由钩子拦截时候，取消保存的_axiosPromiseArr</a></li>
+        <li>
+          <ul>
+            <li><a href="#cd-public">cd public</a></li>
+            <li><a href="#git-pull">git pull</a></li>
+            <li><a href="#git-status">git status</a></li>
+            <li><a href="#git-add-">git add .</a></li>
+            <li><a href="#git-commit--m-new">git commit -m &ldquo;new&rdquo;</a></li>
+            <li><a href="#git-push">git push</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="应用场景当切换路由页面取消正在请求的接口">应用场景：当切换路由页面，取消正在请求的接口</h3>
-<h3 id="1请求拦截器">1.请求拦截器</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// axios.js
-</span></span><span class="line"><span class="cl">window._axiosPromiseArr = [] // axios中设置放置要取消的对象
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">axios.interceptors.request.use(config =&gt; {
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  config.cancelToken = new axios.CancelToken(cancel =&gt; {
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    window._axiosPromiseArr.push({ cancel })
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  })
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  return config
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">}, error =&gt; {
-</span></span><span class="line"><span class="cl">  return Promise.reject(error)
-</span></span><span class="line"><span class="cl">})
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="2进入路由钩子拦截时候取消保存的_axiospromisearr">2.进入路由钩子拦截时候，取消保存的_axiosPromiseArr</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// main.js
-</span></span><span class="line"><span class="cl">router.beforeEach((to, from, next) =&gt; {
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  window._axiosPromiseArr.forEach((ele,index) =&gt; {
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      ele.cancel() // 路由跳转之前，清空（终止）上一个页面正在请求的内容
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      // 清空请求的参数 清空请求的参数
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">      delete window._axiosPromiseArr[index]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  })
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">})
-</span></span></code></pre></td></tr></table>
-</div>
-</div></div><div class="post-footer" id="post-footer">
+            </div><div class="content" id="content"><p>注意
+默认情况下, 所有文章和页面均作为草稿创建. 如果想要渲染这些页面, 请从元数据中删除属性 draft: true, 设置属性 draft: false</p>
+<h4 id="cd-public">cd public</h4>
+<h4 id="git-pull">git pull</h4>
+<h4 id="git-status">git status</h4>
+<h4 id="git-add-">git add .</h4>
+<h4 id="git-commit--m-new">git commit -m &ldquo;new&rdquo;</h4>
+<h4 id="git-push">git push</h4>
+</div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2024-10-16</span>
+                <span>Updated on 2024-10-01</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
-                            <a class="link-to-markdown" href="/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/index.md" target="_blank">Read Markdown</a>
+                            <a class="link-to-markdown" href="/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的接口" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的接口"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的接口"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的接口"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" data-title="git发布hugo命令" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" data-title="git发布hugo命令"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" data-title="git发布hugo命令"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" data-title="git发布hugo命令"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -217,7 +157,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/git%E5%8F%91%E5%B8%83hugo%E5%91%BD%E4%BB%A4/" class="prev" rel="prev" title="git发布hugo命令"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>git发布hugo命令</a></div>
+    <div class="post-nav"><a href="/hugo%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Hugo使用"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hugo使用</a>
+            <a href="/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3/" class="next" rel="next" title="axios当切换路由页面，取消正在请求的接口">axios当切换路由页面，取消正在请求的接口<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
