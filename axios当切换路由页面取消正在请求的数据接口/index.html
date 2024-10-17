@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>axios当切换路由页面，取消正在请求的数据接口 - lyh博客</title><meta name="Description" content="这是我的全新 Hugo 网站"><meta property="og:title" content="axios当切换路由页面，取消正在请求的数据接口" />
+<meta property="og:description" content="应用场景：当切换路由页面，取消正在请求的接口 1.请求拦截器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // axios.js window._axiosPromiseArr = [] // axios中设置放置要取消的对象 // 请求拦" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/" /><meta property="og:image" content="http://localhost:1313/logo.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-10-16T17:22:49+08:00" />
+<meta property="article:modified_time" content="2024-10-16T17:22:49+08:00" /><meta property="og:site_name" content="我的网站" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="http://localhost:1313/logo.png" /><meta name="twitter:title" content="axios当切换路由页面，取消正在请求的数据接口"/>
+<meta name="twitter:description" content="应用场景：当切换路由页面，取消正在请求的接口 1.请求拦截器 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 // axios.js window._axiosPromiseArr = [] // axios中设置放置要取消的对象 // 请求拦"/>
+<meta name="twitter:site" content="@xxxx"/>
+<meta name="application-name" content="我的网站">
+<meta name="apple-mobile-web-app-title" content="我的网站"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/images/laifu.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/" /><link rel="prev" href="http://localhost:1313/hugo%E4%BD%BF%E7%94%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "axios当切换路由页面，取消正在请求的数据接口",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3\/"
+        },"genre": "posts","wordcount":  296 ,
+        "url": "http:\/\/localhost:1313\/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3\/","datePublished": "2024-10-16T17:22:49+08:00","dateModified": "2024-10-16T17:22:49+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "lyh"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="lyh博客">Home</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="lyh博客">Home</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">axios当切换路由页面，取消正在请求的数据接口</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>lyh</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-16">2024-10-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;296 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="true">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#应用场景当切换路由页面取消正在请求的接口">应用场景：当切换路由页面，取消正在请求的接口</a></li>
+        <li><a href="#1请求拦截器">1.请求拦截器</a></li>
+        <li><a href="#2响应拦截器">2.响应拦截器</a></li>
+        <li><a href="#3进入路由钩子拦截时候取消保存的_axiospromisearr">3.进入路由钩子拦截时候，取消保存的_axiosPromiseArr</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="应用场景当切换路由页面取消正在请求的接口">应用场景：当切换路由页面，取消正在请求的接口</h3>
+<h3 id="1请求拦截器">1.请求拦截器</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// axios.js
+</span></span><span class="line"><span class="cl">window._axiosPromiseArr = [] // axios中设置放置要取消的对象
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">// 请求拦截器
+</span></span><span class="line"><span class="cl">axios.interceptors.request.use(config =&gt; {
+</span></span><span class="line"><span class="cl">  config.cancelToken = new axios.CancelToken(cancel =&gt; {
+</span></span><span class="line"><span class="cl">    // 存储取消请求接口对象
+</span></span><span class="line"><span class="cl">    window._axiosPromiseArr.push({ cancel });
+</span></span><span class="line"><span class="cl">  });
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  return config;
+</span></span><span class="line"><span class="cl">}, error =&gt; {
+</span></span><span class="line"><span class="cl">  console.log(error);
+</span></span><span class="line"><span class="cl">  return Promise.reject(error);
+</span></span><span class="line"><span class="cl">});
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2响应拦截器">2.响应拦截器</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">service.interceptors.response.use(response =&gt; {
+</span></span><span class="line"><span class="cl">  // 在请求完成后，从数组中移除相应的取消函数
+</span></span><span class="line"><span class="cl">  window._axiosPromiseArr = window._axiosPromiseArr.filter(ele =&gt; ele.cancel !== response.config.cancelToken.promise);
+</span></span><span class="line"><span class="cl">  return response;
+</span></span><span class="line"><span class="cl">}, error =&gt; {
+</span></span><span class="line"><span class="cl">  // 在请求错误时，也移除相应的取消函数
+</span></span><span class="line"><span class="cl">  window._axiosPromiseArr = window._axiosPromiseArr.filter(ele =&gt; ele.cancel !== error.config?.cancelToken?.promise);
+</span></span><span class="line"><span class="cl">  return Promise.reject(error);
+</span></span><span class="line"><span class="cl">});
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3进入路由钩子拦截时候取消保存的_axiospromisearr">3.进入路由钩子拦截时候，取消保存的_axiosPromiseArr</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// main.js
+</span></span><span class="line"><span class="cl">router.beforeEach((to, from, next) =&gt; {
+</span></span><span class="line"><span class="cl">  // 遍历并取消所有未完成的请求
+</span></span><span class="line"><span class="cl">  window._axiosPromiseArr.forEach(ele =&gt; {
+</span></span><span class="line"><span class="cl">    if (ele.cancel) {
+</span></span><span class="line"><span class="cl">      ele.cancel(); // 取消请求
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  });
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  // 清空请求数组
+</span></span><span class="line"><span class="cl">  window._axiosPromiseArr = []; // 清空请求的参数
+</span></span><span class="line"><span class="cl">  next(); // 继续路由导航
+</span></span><span class="line"><span class="cl">});
+</span></span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-10-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的数据接口" data-via="xxxx"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的数据接口"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的数据接口"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://localhost:1313/axios%E5%BD%93%E5%88%87%E6%8D%A2%E8%B7%AF%E7%94%B1%E9%A1%B5%E9%9D%A2%E5%8F%96%E6%B6%88%E6%AD%A3%E5%9C%A8%E8%AF%B7%E6%B1%82%E7%9A%84%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3/" data-title="axios当切换路由页面，取消正在请求的数据接口"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/hugo%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Hugo使用"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Hugo使用</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.123.6">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">lyh</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","maxResultLength":10,"noResultsFound":"No results found","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
